@@ -1,11 +1,43 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import HelloWorld from '@/components/HelloWorld.vue';
+import UserView from '../views/UserView.vue'
+import DataView from '../views/DataView.vue'
+import DataForm from '../views/DataForm.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    name: '',
+    redirect: "/data"
+  },
+  {
+    path: '/users',
+    name: 'users',
+    component: UserView
+  },
+  {
+    path: '/data',
+
+    children: [
+      {
+        path: '',
+        name: "list",
+        component: DataView,
+      },
+      {
+      path: 'form/:name/:id/:action',
+      name: 'form',
+      props: true,
+      component: DataForm
+    },
+    {
+      path: "hello/:msg",
+      name: "hello",
+      props: true,
+      component: HelloWorld
+    }
+  ],
+
   },
   {
     path: '/about',
